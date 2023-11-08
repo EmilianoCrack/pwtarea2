@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel de Imágenes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="carrusel">
+        <img src="imagen1.jpg" alt="Imagen 1">
+        <img src="imagen2.jpg" alt="Imagen 2">
+        <img src="imagen3.jpg" alt="Imagen 3">
+    </div>
+    <button id="anterior">Anterior</button>
+    <button id="siguiente">Siguiente</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const carrusel = document.querySelector(".carrusel");
+            const imagenes = carrusel.querySelectorAll("img");
+            const anteriorBtn = document.getElementById("anterior");
+            const siguienteBtn = document.getElementById("siguiente");
+            let indiceImagenActual = 0;
+
+            function mostrarImagen(indice) {
+                imagenes.forEach((imagen, index) => {
+                    imagen.style.display = index === indice ? "block" : "none";
+                });
+            }
+
+            function avanzar() {
+                indiceImagenActual = (indiceImagenActual + 1) % imagenes.length;
+                mostrarImagen(indiceImagenActual);
+            }
+
+            function retroceder() {
+                indiceImagenActual = (indiceImagenActual - 1 + imagenes.length) % imagenes.length;
+                mostrarImagen(indiceImagenActual);
+            }
+
+            anteriorBtn.addEventListener("click", retroceder);
+            siguienteBtn.addEventListener("click", avanzar);
+
+            mostrarImagen(indiceImagenActual);
+
+            // Cambiar automáticamente de imagen cada 3 segundos
+            setInterval(avanzar, 3000);
+        });
+    </script>
+</body>
+</html>

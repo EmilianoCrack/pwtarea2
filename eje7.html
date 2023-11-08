@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Navegación Desplegable</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul id="menu">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Productos</a>
+                <ul class="submenu">
+                    <li><a href="#">Producto 1</a></li>
+                    <li><a href="#">Producto 2</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Servicios</a>
+                <ul class="submenu">
+                    <li><a href="#">Servicio 1</a></li>
+                    <li><a href="#">Servicio 2</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Acerca de</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuItems = document.querySelectorAll("#menu li");
+
+            menuItems.forEach((item) => {
+                const submenu = item.querySelector(".submenu");
+                if (submenu) {
+                    item.addEventListener("click", function() {
+                        submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

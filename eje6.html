@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas Interactiva</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    <ul id="lista-tareas">
+    </ul>
+    <div>
+        <input type="text" id="nueva-tarea" placeholder="Agregar una nueva tarea">
+        <button id="agregar-tarea">Agregar</button>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const listaTareas = document.getElementById("lista-tareas");
+            const nuevaTareaInput = document.getElementById("nueva-tarea");
+            const agregarTareaBtn = document.getElementById("agregar-tarea");
+
+            agregarTareaBtn.addEventListener("click", function() {
+                const tareaTexto = nuevaTareaInput.value.trim();
+
+                if (tareaTexto !== "") {
+                    const nuevaTarea = document.createElement("li");
+                    nuevaTarea.textContent = tareaTexto;
+
+                    const eliminarBtn = document.createElement("button");
+                    eliminarBtn.textContent = "Eliminar";
+                    eliminarBtn.addEventListener("click", function() {
+                        listaTareas.removeChild(nuevaTarea);
+                    });
+
+                    nuevaTarea.appendChild(eliminarBtn);
+                    listaTareas.appendChild(nuevaTarea);
+
+                    nuevaTareaInput.value = "";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

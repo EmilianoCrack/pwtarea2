@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj Analógico</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="reloj">
+        <img id="hora" src="manecilla_hora.png" alt="Manecilla de la hora">
+        <img id="minuto" src="manecilla_minuto.png" alt="Manecilla del minuto">
+        <img id="segundo" src="manecilla_segundo.png" alt="Manecilla del segundo">
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const horaManecilla = document.getElementById("hora");
+            const minutoManecilla = document.getElementById("minuto");
+            const segundoManecilla = document.getElementById("segundo");
+
+            function actualizarReloj() {
+                const ahora = new Date();
+                const horas = ahora.getHours() % 12; // Ajusta para el formato de 12 horas
+                const minutos = ahora.getMinutes();
+                const segundos = ahora.getSeconds();
+
+                const gradosHoras = (horas * 30) + (minutos / 2); // Cada hora es 30 grados, y cada minuto aporta 0.5 grados
+                const gradosMinutos = minutos * 6; // Cada minuto es 6 grados
+                const gradosSegundos = segundos * 6; // Cada segundo es 6 grados
+
+                horaManecilla.style.transform = `rotate(${gradosHoras}deg)`;
+                minutoManecilla.style.transform = `rotate(${gradosMinutos}deg)`;
+                segundoManecilla.style.transform = `rotate(${gradosSegundos}deg)`;
+            }
+
+            setInterval(actualizarReloj, 1000); // Actualiza el reloj cada segundo
+            actualizarReloj(); // Llama a la función una vez para mostrar la hora al cargar la página
+        });
+    </script>
+</body>
+</html>

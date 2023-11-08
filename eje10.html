@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Preguntas y Respuestas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Juego de Preguntas y Respuestas</h1>
+    <div id="pregunta"></div>
+    <div id="opciones"></div>
+    <button id="siguiente">Siguiente</button>
+    <div id="puntuacion">Puntuación: 0</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const preguntaElement = document.getElementById("pregunta");
+            const opcionesElement = document.getElementById("opciones");
+            const siguienteBtn = document.getElementById("siguiente");
+            const puntuacionElement = document.getElementById("puntuacion");
+
+            const preguntas = [
+                {
+                    pregunta: "¿Cuál es la capital de Francia?",
+                    opciones: ["Londres", "París", "Berlín", "Roma"],
+                    respuestaCorrecta: 1
+                },
+                {
+                    pregunta: "¿Cuál es el color del cielo en un día despejado?",
+                    opciones: ["Verde", "Amarillo", "Azul", "Rojo"],
+                    respuestaCorrecta: 2
+                },
+                {
+                    pregunta: "¿Cuál es el número de lados en un triángulo?",
+                    opciones: ["3", "4", "5", "6"],
+                    respuestaCorrecta: 0
+                }
+            };
+
+            let preguntaActual = 0;
+            let puntuacion = 0;
+
+            function mostrarPregunta() {
+                if (preguntaActual < preguntas.length) {
+                    const pregunta = preguntas[preguntaActual];
+                    preguntaElement.textContent = pregunta.pregunta;
+                    opcionesElement.innerHTML = "";
+
+                    pregunta.opciones.forEach((opcion, index) => {
+                        const opcionElement = document.createElement("button");
+                        opcionElement.textContent = opcion;
+                        opcionElement.addEventListener("click", function() {
+                            evaluarRespuesta(index);
+                        });
+                        opcionesElement.appendChild(opcionElement);
+                    });
+                } else {
+                    mostrarPuntuacion();
+                }
+            }
+
+            function evaluarRespuesta(indiceRespuesta) {
+                const pregunta = preguntas[preguntaActual];
+                if (indiceRespuesta === pregunta.respuestaCorrecta) {
+                    puntuacion++;
+                }
+                preguntaActual++;
+                mostrarPregunta();
+            }
+
+            function mostrarPuntuacion() {
+                preguntaElement.textContent = "Juego completado";
+                opcionesElement.innerHTML = "";
+                siguienteBtn.style.display = "none";
+                puntuacionElement.textContent = "Puntuación final: " + puntuacion;
+            }
+
+            siguienteBtn.addEventListener("click", mostrarPregunta);
+            mostrarPregunta();
+        });
+    </script>
+</body>
+</html>
